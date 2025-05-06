@@ -13,7 +13,7 @@ import {
   Badge,
   Drawer,
   List,
-  ListItem,
+  ListItemButton,
   ListItemText,
   Divider,
   Menu,
@@ -138,7 +138,7 @@ const Header = () => {
     setPersonMenuAnchor(null)
   }
 
-  // Đóng submenu khi cuộn trang
+  // Close submenu on scroll
   useEffect(() => {
     const handleScroll = () => {
       if (personMenuAnchor) {
@@ -230,30 +230,30 @@ const Header = () => {
       </Typography>
       <Divider />
       <List>
-        <ListItem button component='a' href='/product'>
+        <ListItemButton component='a' href='/product'>
           <ListItemText primary='Sản phẩm' />
-        </ListItem>
-        <ListItem button component='a' href='/ao-nam'>
+        </ListItemButton>
+        <ListItemButton component='a' href='/ao-nam'>
           <ListItemText primary='Áo Nam' />
-        </ListItem>
-        <ListItem button component='a' href='/quan-nam'>
+        </ListItemButton>
+        <ListItemButton component='a' href='/quan-nam'>
           <ListItemText primary='Quần Nam' />
-        </ListItem>
-        <ListItem button>
+        </ListItemButton>
+        <ListItemButton>
           <ListItemText primary='Đăng nhập' />
-        </ListItem>
-        <ListItem button>
+        </ListItemButton>
+        <ListItemButton>
           <ListItemText primary='Hồ sơ' />
-        </ListItem>
-        <ListItem button>
+        </ListItemButton>
+        <ListItemButton>
           <ListItemText primary='Đăng xuất' />
-        </ListItem>
-        <ListItem button>
+        </ListItemButton>
+        <ListItemButton>
           <ListItemText primary='Giỏ hàng' />
-        </ListItem>
-        <ListItem button>
+        </ListItemButton>
+        <ListItemButton>
           <ListItemText primary='Thông tin đơn hàng' />
-        </ListItem>
+        </ListItemButton>
       </List>
     </Box>
   )
@@ -414,7 +414,7 @@ const Header = () => {
               </Menu>
               <IconButton color='inherit'>
                 <Badge badgeContent={3} color='error'>
-                  <a href={'/cart'}>
+                  <a href='/cart'>
                     <ShoppingCartIcon />
                   </a>
                 </Badge>

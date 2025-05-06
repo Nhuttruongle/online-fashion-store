@@ -308,15 +308,13 @@ function UserHome() {
       >
         <Grid
           container
-          direction='row'
-          sx={{
-            justifyContent: 'center',
-            alignItems: 'center',
-            marginTop: '50px',
-            gap: '20px'
-          }}
+          justifyContent='center'
+          alignItems='center'
+          sx={{ marginTop: '50px' }}
         >
-          <h1>SẢN PHẨM CỦA CHÚNG TÔI</h1>
+          <Typography variant='h4' component='h1' fontWeight='bold'>
+            SẢN PHẨM CỦA CHÚNG TÔI
+          </Typography>
         </Grid>
       </Box>
       {/* Cards section */}
@@ -331,28 +329,31 @@ function UserHome() {
       >
         <Grid
           container
-          direction='row'
-          sx={{
-            justifyContent: 'center',
-            alignItems: 'center',
-            marginTop: '50px',
-            gap: '20px'
-          }}
+          spacing={2}
+          justifyContent='center'
+          alignItems='stretch'
         >
           {cards.slice(0, 8).map((card) => (
-            <Grid item xs={12} sm={6} md={4} key={card.id}>
-              <Card sx={{ maxWidth: 345, marginBottom: '20px' }}>
-                <a href={'/productdetail'} style={{ textDecoration: 'none' }}>
+            <Grid item xs={12} sm={6} md={3} key={card.id}>
+              <Card
+                sx={{
+                  height: '100%',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between'
+                }}
+              >
+                <Link to='/productdetail' style={{ textDecoration: 'none' }}>
                   <CardMedia
                     component='img'
                     height='294'
                     image={card.image}
                     alt={card.title}
                   />
-                </a>
+                </Link>
                 <CardContent>
-                  <a
-                    href={'/productdetail'}
+                  <Link
+                    to='/productdetail'
                     style={{
                       textDecoration: 'none',
                       color: 'black',
@@ -360,7 +361,7 @@ function UserHome() {
                     }}
                   >
                     {card.description}
-                  </a>
+                  </Link>
                 </CardContent>
                 <CardActions disableSpacing>
                   <IconButton aria-label='add to favorites'>
