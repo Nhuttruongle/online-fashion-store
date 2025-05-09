@@ -1,17 +1,37 @@
 import express from 'express'
 import { StatusCodes } from 'http-status-codes'
 
+import { authMiddleware } from '~/middlewares/authMiddleware'
+
+// Router
 import { authRoute } from '~/routes/v1/authRoute'
+import { usersRoute } from '~/routes/v1/usersRoute'
+import { categoriesRoute } from '~/routes/v1/categoriesRoute'
+import { productsRoute } from '~/routes/v1/productsRoute'
+import { cartsRoute } from '~/routes/v1/cartsRoute'
 
 const Router = express.Router()
 
-Router.get('/status', (req, res) => {
+// Route kiểm tra trạng thái
+Router.route('/status').get(authMiddleware.isAuthorized, (req, res) => {
   res.status(StatusCodes.OK).json({
     message: 'APIs V1 đã sẵn sàng để sử dụng'
   })
 })
 
-// User APIs
+// Authentication APIs
 Router.use('/auth', authRoute)
+
+// Users APIs
+Router.use('/users', usersRoute)
+
+// Categories APIs
+Router.use('/categories', categoriesRoute)
+
+// Products APIs
+Router.use('/products', productsRoute)
+
+// Products APIs
+Router.use('/carts', cartsRoute)
 
 export const APIs_V1 = Router

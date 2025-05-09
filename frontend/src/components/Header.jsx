@@ -25,6 +25,10 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import PersonIcon from '@mui/icons-material/Person'
 import MenuIcon from '@mui/icons-material/Menu'
 
+import { useSelector, useDispatch } from 'react-redux'
+import { selectCurrentUser, logoutUserAPI } from '~/redux/user/userSlice'
+import ListItemButton from '@mui/material/ListItemButton'
+
 // Styled Components
 const TopBar = styled(Box)(({ theme }) => ({
   backgroundColor: '#03235e',
@@ -223,6 +227,16 @@ const Header = () => {
     return null
   }
 
+  // ========== XỬ LÝ ĐĂNG XUẤT =====
+  const dispatch = useDispatch()
+  const currentUser = useSelector(selectCurrentUser)
+
+  const handleLogout = () => {
+    console.log('LOGOUT')
+    dispatch(logoutUserAPI())
+  }
+  // ==========
+
   const drawer = (
     <Box sx={{ width: 250, p: 2 }}>
       <Typography variant='h6' sx={{ p: 2, fontWeight: 700 }}>
@@ -244,11 +258,21 @@ const Header = () => {
         </ListItemButton>
         <ListItemButton>
           <ListItemText primary='Hồ sơ' />
+<<<<<<< HEAD
         </ListItemButton>
         <ListItemButton>
           <ListItemText primary='Đăng xuất' />
         </ListItemButton>
         <ListItemButton>
+=======
+        </ListItem>
+
+        <ListItem button>
+          <ListItemText primary='Đăng xuất' />
+        </ListItem>
+
+        <ListItem button>
+>>>>>>> 01c3c6298a51c54dfb3c2bf0a6696635c2e3f078
           <ListItemText primary='Giỏ hàng' />
         </ListItemButton>
         <ListItemButton>

@@ -6,47 +6,38 @@ import TextField from '@mui/material/TextField'
 import Zoom from '@mui/material/Zoom'
 import Alert from '@mui/material/Alert'
 import { useForm } from 'react-hook-form'
-import authorizedAxiosInstance from '~/utils/authorizedAxios.js'
-// import { toast } from 'react-toastify'
-import { API_ROOT } from '~/utils/constants.js'
-import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 import { Facebook, GitHub, Google } from '@mui/icons-material'
-import React from 'react'
-import { styled } from '@mui/system'
 import ArrowBack from '@mui/icons-material/ArrowBack'
+import { styled } from '@mui/system'
+import { useDispatch } from 'react-redux'
+import { useNavigate, useSearchParams } from 'react-router-dom'
+import { loginUserAPI } from '~/redux/user/userSlice'
 
 function Login() {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
   const {
     register,
     handleSubmit,
     formState: { errors }
   } = useForm()
 
-  const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
+  const registeredEmail = searchParams.get('rigisteredEmail')
+  const verifiedEmail = searchParams.get('verifiedEmail')
 
   const submitLogIn = async (data) => {
-    const res = await authorizedAxiosInstance.post(
-      `${API_ROOT}/v1/auth/login`,
-      data
-    )
-    console.log('Data from API: ', res.data)
-
-    const userInfoFromLocalstorage = localStorage.getItem('userInfo')
-    console.log(
-      'Data from Localstorage: ',
-      JSON.parse(userInfoFromLocalstorage)
-    )
-
-    const userInfo = {
-      id: res.data.id,
-      email: res.data.email
-    }
-
-    localStorage.setItem('accessToken', res.data.accessToken)
-    localStorage.setItem('refreshToken', res.data.refreshToken)
-    localStorage.setItem('userInfo', JSON.stringify(userInfo))
-
-    navigate('/')
+    toast
+      .promise(dispatch(loginUserAPI(data)), {
+        pending: 'Đang đăng nhập...'
+      })
+      .then((res) => {
+        // Đoạn này phải kiểm tra không có lỗi thì mới redirect về route /
+        if (!res.error) {
+          navigate('/')
+        }
+      })
   }
   const SocialButton = styled(Button)({
     padding: '8px',
@@ -129,6 +120,28 @@ function Login() {
               <Typography variant='body2' color='text.secondary'>
                 Vui lòng đăng nhập để tiếp tục
               </Typography>
+
+              {/*=========State User========*/}
+              {verifiedEmail && (
+                <Alert
+                  variant='outlined'
+                  severity='success'
+                  sx={{ textAlign: 'left' }}
+                >
+                  Tài khoản đã được xác thực.
+                </Alert>
+              )}
+
+              {registeredEmail && (
+                <Alert
+                  variant='outlined'
+                  severity='info'
+                  sx={{ textAlign: 'left' }}
+                >
+                  Vui lòng vào gmail <b>{registeredEmail}</b> để xác thực tài
+                  khoản trước khi sử dụng dịch vụ.
+                </Alert>
+              )}
             </Box>
 
             <Box sx={{ mb: 2 }}>
@@ -161,6 +174,7 @@ function Login() {
                   required: 'Mật khẩu không được để trống.'
                 })}
               />
+
               {errors.password && (
                 <Alert severity='error' sx={{ mt: 1 }}>
                   {errors.password.message}

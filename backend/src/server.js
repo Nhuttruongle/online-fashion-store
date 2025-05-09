@@ -3,6 +3,7 @@ import express from 'express'
 import cors from 'cors'
 import mongoose from 'mongoose'
 import exitHook from 'async-exit-hook'
+import cookieParser from 'cookie-parser'
 
 import { CONNECT_DB } from '~/config/mongodb'
 import { env } from '~/config/environment'
@@ -12,6 +13,9 @@ import { corsOptions } from '~/config/cors'
 
 const START_SERVER = () => {
   const app = express()
+
+  // Middleware cấu hình Cookie Parser
+  app.use(cookieParser())
 
   // Middleware để xử lý CORS
   app.use(cors(corsOptions))
@@ -28,7 +32,8 @@ const START_SERVER = () => {
   // Ruuning server
   app.listen(env.APP_PORT, env.APP_HOST, () => {
     console.log(
-      `Xin chào Dev!, Tôi đang chạy tại http://${env.APP_HOST}:${env.APP_PORT}/`
+      '\x1b[32m%s\x1b[0m',
+      `Xin chào Dev!, Tôi đang chạy tại HOST: ${env.APP_HOST} - PORT: ${env.APP_PORT}`
     )
   })
 
@@ -40,7 +45,9 @@ const START_SERVER = () => {
 }
 
 CONNECT_DB()
-  .then(() => console.log('Kết nối thành công đến MongoDB!'))
+  .then(() =>
+    console.log('\x1b[32m%s\x1b[0m', 'Kết nối thành công đến MongoDB!')
+  )
   .then(() => {
     START_SERVER()
   })
