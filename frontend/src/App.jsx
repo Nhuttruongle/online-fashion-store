@@ -14,6 +14,8 @@ import Product from '~/pages/user/Product/Product'
 import ProductDetail from '~/pages/user/ProductDetail/ProductDetail'
 import Payment from '~/pages/user/Payment/Payment'
 import Cart from '~/pages/user/Cart/Cart'
+import Profile from '~/pages/user/Profile/Profile'
+import Order from '~/pages/user/Order/Order'
 
 // Trang HeaderAdmin
 import AdminLayout from '~/layout/AdminLayout'
@@ -22,7 +24,7 @@ import UserManagement from '~/pages/admin/UserManagement/index'
 import ProductManagement from '~/pages/admin/ProductManagement/index.jsx'
 import CategorieManagement from '~/pages/admin/CategorieManagement/index.jsx'
 import OrderManagement from '~/pages/admin/OrderManagement/index'
-import Profile from '~/pages/admin/Profile/index.jsx'
+import ProfileAdmin from '~/pages/admin/Profile/index.jsx'
 
 // Trang 404
 import NotFound from '~/pages/404/NotFound'
@@ -56,6 +58,8 @@ function App() {
           {/*<Outlet/> của react-router-dom sẽ chạy vào các child route trong này*/}
           <Route path='payment' element={<Payment />} />
           <Route path='cart' element={<Cart />} />
+          <Route path='profile' element={<Profile />} />
+          <Route path='order' element={<Order />} />
         </Route>
         <Route index element={<UserHome />} />
       </Route>
@@ -72,7 +76,7 @@ function App() {
             element={<CategorieManagement />}
           />
           <Route path='order-management' element={<OrderManagement />} />
-          <Route path='profile' element={<Profile />} />
+          <Route path='profile' element={<ProfileAdmin />} />
         </Route>
       </Route>
 
